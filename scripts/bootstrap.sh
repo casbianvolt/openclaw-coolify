@@ -153,10 +153,12 @@ fi
 export OPENCLAW_STATE_DIR="$OPENCLAW_STATE"
 
 # ----------------------------
-# Sandbox setup
+# Sandbox setup (nur wenn SANDBOX_CONTAINER nicht false)
 # ----------------------------
-[ -f scripts/sandbox-setup.sh ] && bash scripts/sandbox-setup.sh
-[ -f scripts/sandbox-browser-setup.sh ] && bash scripts/sandbox-browser-setup.sh
+if [ "${SANDBOX_CONTAINER}" != "false" ]; then
+  [ -f scripts/sandbox-setup.sh ] && bash scripts/sandbox-setup.sh
+  [ -f scripts/sandbox-browser-setup.sh ] && bash scripts/sandbox-browser-setup.sh
+fi
 
 # ----------------------------
 # Recovery & Monitoring
