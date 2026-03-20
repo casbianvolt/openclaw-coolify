@@ -3,7 +3,7 @@
 ########################################
 # Stage 1: Base System
 ########################################
-FROM node:20-bookworm-slim AS base
+FROM node:22-bookworm-slim AS base
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PIP_ROOT_USER_ACTION=ignore
@@ -85,14 +85,14 @@ RUN --mount=type=cache,target=/data/.npm \
     npm install -g openclaw; \
     fi 
 
-# Install uv explicitly
-RUN curl -L https://github.com/azlux/uv/releases/latest/download/uv-linux-x64 -o /usr/local/bin/uv && \
-    chmod +x /usr/local/bin/uv
+# Install uv (Astral)
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    ln -sf /root/.local/bin/uv /usr/local/bin/uv
 
-# Claude + Kimi
-RUN curl -fsSL https://claude.ai/install.sh | bash && \
-    curl -L https://code.kimi.com/install.sh | bash && \
-    command -v uv
+# Claude + Kimi (optional, non-fatal — may require auth post-deploy)
+RUN (curl -fsSL https://claude.ai/install.sh | bash) || echo "Claude CLI install skipped" && \
+    (curl -L https://code.kimi.com/install.sh | bash) || echo "Kimi CLI install skipped" && \
+    (command -v uv || echo "uv not in PATH yet")
 
 # Make sure uv and other local bins are available
 ENV PATH="/root/.local/bin:${PATH}"
