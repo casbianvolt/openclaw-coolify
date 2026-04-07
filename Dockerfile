@@ -53,7 +53,7 @@ ENV BUN_INSTALL="/data/.bun" \
 RUN curl -fsSL https://bun.sh/install | bash
 
 # Python tools
-RUN pip3 install ipython csvkit openpyxl python-docx pypdf botasaurus browser-use playwright --break-system-packages && \
+RUN pip3 install ipython csvkit openpyxl python-docx pypdf botasaurus browser-use playwright ccxt pandas --break-system-packages && \
     playwright install-deps
 
 ENV XDG_CACHE_HOME="/data/.cache"
