@@ -177,6 +177,17 @@ if [ -f scripts/recover_sandbox.sh ]; then
 fi
 
 # ----------------------------
+# Install Skill Dependencies
+# ----------------------------
+SKILLS_DIR="$OPENCLAW_STATE/skills"
+if [ -d "$SKILLS_DIR" ]; then
+  for req in "$SKILLS_DIR"/*/requirements.txt; do
+    [ -f "$req" ] && pip3 install -r "$req" --break-system-packages -q 2>/dev/null || true
+  done
+  echo "📦 Skill dependencies installed"
+fi
+
+# ----------------------------
 # Run OpenClaw
 # ----------------------------
 ulimit -n 65535
