@@ -126,7 +126,6 @@ if [ ! -f "$CONFIG_FILE" ]; then
       "workspace": "$WORKSPACE_DIR",
       "envelopeTimestamp": "on",
       "envelopeElapsed": "on",
-      "cliBackends": {},
       "heartbeat": {
         "every": "1h"
       },
